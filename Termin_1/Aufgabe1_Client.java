@@ -13,7 +13,7 @@ public class Aufgabe1_Client {
             DatagramSocket cliSock = new DatagramSocket(CLIENTPORT);
             System.out.println("Client Port: "+ cliSock.getLocalPort()+ "\n");
         
-            String msgSend = "Wenn ich Echo sag, sagst du Echo zurück.";
+            String msgSend = "Hallo, Echooooo !!!!!!€€€€%%";
             byte[] byteSend = msgSend.getBytes("UTF-8");
             DatagramPacket packetOut = new DatagramPacket(byteSend, byteSend.length, SERVERIPADDR, SERVERPORT);
             System.out.println("Sende:" + msgSend+ "\nLänge: " + msgSend.length() + "\n");
