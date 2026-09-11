@@ -8,21 +8,22 @@ public class Test1_Client{
     public static void main(String[] args){
         try{
             final InetAddress SERVERIPADDR = InetAddress.getByName("localhost");
-            
 
             //DatagramSocket sock2 = new DatagramSocket(SERVERPORT, SERVERIPADDR);
             DatagramSocket sock2 = new DatagramSocket(); //kurzlebiger Port
 
             System.out.println("Sender (Client) Port:" + sock2.getLocalPort());
             System.out.println();
+            
             String msgSend = "Hello World!äöüäöüßß@€€";
+
             byte[] byteSendBuffer = msgSend.getBytes("UTF-8");
             DatagramPacket packetOut = new DatagramPacket(byteSendBuffer, byteSendBuffer.length, SERVERIPADDR, SERVERPORT);
             sock2.send(packetOut);
+
             System.out.println("Message send");
             System.out.println(msgSend +  " >>>  Length(Character): " + msgSend.length() + " Bytes: " + byteSendBuffer.length);
             System.out.println(bytesToHex(byteSendBuffer));
-        
 
             sock2.close();
 

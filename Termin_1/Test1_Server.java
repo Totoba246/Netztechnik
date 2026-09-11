@@ -10,18 +10,16 @@ public class Test1_Server{
             final InetAddress SERVERIPADDR = InetAddress.getByName("localhost");
             DatagramSocket sock1 = new DatagramSocket(SERVERPORT);
 
-
             System.out.println("Receiver (Server) Port: " + sock1.getLocalPort());
-            
-
             System.out.println("Receiving: ");
+
             byte[] byteReceiveBuffer = new byte[1024];
             DatagramPacket packetIn = new DatagramPacket( byteReceiveBuffer, byteReceiveBuffer.length);
             sock1.receive(packetIn);
+
             String msgReceived = new String(packetIn.getData(), 0, packetIn.getLength(), "UTF-8");
             System.out.println("Message received");
             System.out.println(msgReceived +" >>>Length(Character): " + msgReceived.length());
-
             System.out.println("bytesReceived: " );
             System.out.println(bytesToHex(packetIn.getData(), packetIn.getLength()));
 
