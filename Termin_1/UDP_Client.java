@@ -1,29 +1,31 @@
 package Termin_1;
 import java.net.*;
 
-public class Test1_Server{
+public class UDP_Client{
 
     final static int SERVERPORT = 50000;
 
     public static void main(String[] args){
         try{
             final InetAddress SERVERIPADDR = InetAddress.getByName("localhost");
-            DatagramSocket sock1 = new DatagramSocket(SERVERPORT);
 
-            System.out.println("Receiver (Server) Port: " + sock1.getLocalPort());
-            System.out.println("Receiving: ");
+            //DatagramSocket sock2 = new DatagramSocket(SERVERPORT, SERVERIPADDR);
+            DatagramSocket sock2 = new DatagramSocket(); //kurzlebiger Port
 
-            byte[] byteReceiveBuffer = new byte[1024];
-            DatagramPacket packetIn = new DatagramPacket( byteReceiveBuffer, byteReceiveBuffer.length);
-            sock1.receive(packetIn);
+            System.out.println("Sender (Client) Port:" + sock2.getLocalPort());
+            System.out.println();
+            
+            String msgSend = "Hello World!äöüäöüßß@€€";
 
-            String msgReceived = new String(packetIn.getData(), 0, packetIn.getLength(), "UTF-8");
-            System.out.println("Message received");
-            System.out.println(msgReceived +" >>>Length(Character): " + msgReceived.length());
-            System.out.println("bytesReceived: " );
-            System.out.println(bytesToHex(packetIn.getData(), packetIn.getLength()));
+            byte[] byteSendBuffer = msgSend.getBytes("UTF-8");
+            DatagramPacket packetOut = new DatagramPacket(byteSendBuffer, byteSendBuffer.length, SERVERIPADDR, SERVERPORT);
+            sock2.send(packetOut);
 
-            sock1.close();
+            System.out.println("Message send");
+            System.out.println(msgSend +  " >>>  Length(Character): " + msgSend.length() + " Bytes: " + byteSendBuffer.length);
+            System.out.println(bytesToHex(byteSendBuffer));
+
+            sock2.close();
 
         }
         catch (Exception ex){

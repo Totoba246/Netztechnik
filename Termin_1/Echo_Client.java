@@ -2,7 +2,7 @@ package Termin_1;
 import java.net.*;
 
 
-public class Aufgabe1_Client {
+public class Echo_Client {
     final static int SERVERPORT = 50000;
     final static int CLIENTPORT = 60000;
 
