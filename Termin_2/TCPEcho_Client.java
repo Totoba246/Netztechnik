@@ -22,7 +22,7 @@ public class TCPEcho_Client {
             byte[] byteSendBuffer = msgSend.getBytes("UTF-8");
             out.write(byteSendBuffer);
             out.flush(); //zwingen zu senden
-            out.close();
+            sock1.shutdownOutput();
 
 
             System.out.println("Receiving: ");
