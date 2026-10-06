@@ -66,15 +66,18 @@ public class WebServer_Handler implements Runnable{
             String htmlTest = "<!Doctype html><html lang=\"de-de\"xml:lang=\"de-de\"xmlns=\"http://www.w3.org/1999/xhtml\"><head><meta http-equiv=\"content-Type\" content=\"text/html; charset=UTF-8\"/><title>Demo Test</title><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"/><head><body><h1>Demo Test</h1><p>Hallo Welt!</p><p>Uhrzeit: " + uhrzeitString + "</p></body></html>";
 
             String html;
-            String[] firstlineParts = firstline.split("/");
-            if(firstlineParts[1].equals("index.html HTTP")){
+            String[] firstlineParts = firstline.split(" ");
+            if(firstlineParts[1].equals("/index.html")){
                 html = htmlIndex;
             }
-            else{
+            else if(firstlineParts[1].equals("/test.html")){
                 html = htmlTest;
             }
-
-            String contentLength = "Content-Length: " + htmlIndex.getBytes().length + "\r\n";
+            else{
+                throw new Exception("404 Not Found");
+            }
+            
+            String contentLength = "Content-Length: " + html.getBytes().length + "\r\n";
             String statuszeile = "HTTP/1.1 200 OK\r\n";
             String response = statuszeile + contentLength + "Content-Type: text/html; charset=UTF-8\r\n\r\n" +html;
 
