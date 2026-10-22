@@ -1,0 +1,28 @@
+send:
+    byte[] msgBuffer;
+    send(FRAME_DELIMITER);
+    for(int i = 0; i < msgBuffer.length; i++) {
+        if(msgBuffer[i] == FRAME_DELIMITER || msgBuffer[i] == ESCAPE) {
+            //Byte stuffing
+            send(ESCAPE);
+            send(msgBuffer[i]);
+        }else {
+            send(msgBuffer[i]);
+        }
+           
+    }
+    send(FRAME_DELIMITER);
+
+receive: Zustandsautomat
+
+Start --> z0 -7E-> z1(Frame beginn erkannt) -7E-> z2(Frame Ende erkannt) --> Start 
+          (_)      (_)           |
+    != 7E/1B    !=7E/1B           -1B-> z3 (Escape erkannt) -beliebiges Byte(löschen)-> z1
+
+    z0 -EOF-> zF 
+    z1 -EOF-> zF
+    z3 -EOF-> zF
+    EOF = Verbindungsabbruch
+
+(Möglich Klausuraufgabe: Code -> Automat, Automat -> Code)
+Übungs: Selber Programmieren.
